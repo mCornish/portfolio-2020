@@ -7,16 +7,15 @@ export default {
   icon,
   fields: [
     {
-      name: 'date',
-      title: 'Date',
-      type: 'date',
-      description: 'When was this written?',
-    },
-    {
       name: 'title',
       title: 'Title',
       type: 'string',
       description: 'What is it called?',
+    },
+    {
+      name: 'type',
+      title: 'Type',
+      type: 'typeObject',
     },
     {
       name: 'subtitle',
@@ -49,16 +48,16 @@ export default {
       },
     },
     {
-      name: 'type',
-      title: 'Type',
-      type: 'reference',
-      to: [{ type: 'postType' }],
-    },
-    {
       name: 'topics',
       title: 'Topics',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'topic' }] }],
+    },
+    {
+      name: 'date',
+      title: 'Manual Date (Optional)',
+      type: 'date',
+      description: 'If included, this will replace the created date',
     },
   ],
 };
