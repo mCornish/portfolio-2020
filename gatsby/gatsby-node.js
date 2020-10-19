@@ -16,15 +16,18 @@ async function turnPostsIntoPages({ graphql, actions }) {
     }
   `);
 
-  data.posts.nodes.forEach((post) =>
+  data.posts.nodes.forEach((post) => {
+    if (!post.slug)
+      return console.warn(`WARNING: No slug found for post ${post.id}`);
+
     actions.createPage({
       path: `post/${post.slug.current}`,
       component: postTemplate,
       context: {
         slug: post.slug.current,
       },
-    })
-  );
+    });
+  });
 }
 
 // async function turnTopicsIntoPages({ graphql, actions }) {
