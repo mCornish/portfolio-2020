@@ -55,6 +55,19 @@ import styled from 'styled-components';
 //   $to.setAttribute('data-active-char', true);
 // }
 
+const LogoStyles = styled.div`
+  display: inline-block;
+  font-family: 'Courier';
+  font-size: 2.2em;
+  line-height: 1;
+  overflow: hidden;
+  color: var(--gray);
+`;
+
 export default function Logo() {
-  return <Link to="/">devStory</Link>;
+  return (
+    <LogoStyles>
+      <Link to="/">devStory</Link>
+    </LogoStyles>
+  );
 }

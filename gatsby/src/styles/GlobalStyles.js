@@ -1,23 +1,28 @@
 import { createGlobalStyle } from 'styled-components';
-import bg from '../assets/images/bg.svg';
-import stripes from '../assets/images/stripes.svg';
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --red: #FF4949;
-    --black: #2E2E2E;
-    --yellow: #ffc600;
-    --white: #fff;
-    --grey: #efefef;
+    --color-brand-1: rgb(57,154,234);
+    --color-brand-2: rgb(135,102,219);
+    --color-text-dark: #666666;
+    --color-text-light: rgba(255,255,255,90);
+    --color-link: rgb(0,0,0);
+    --color-link-visited: rgba(0,0,0,40);
+
+    --black: rgba(0,0,0,.9);
+    --dark-gray: #333;
+    --gray: #666;
+
+    --content-width: 740px;
   }
   html {
-    background-image: url(${bg});
-    background-size: 450px;
-    background-attachment: fixed;
     font-size: 10px;
+    line-height: 1.8;
   }
 
   body {
+    display: flex;
+    justify-content: center;
     font-size: 2rem;
   }
 
@@ -64,23 +69,13 @@ const GlobalStyles = createGlobalStyle`
     border: 3px solid var(--white);
   }
 
-  hr {
-    border: 0;
-    height: 8px;
-    background-image: url(${stripes});
-    background-size: 1500px;
-  }
-
   img {
     max-width: 100%;
   }
 
-  .tilt {
-    transform: rotate(-2deg);
-    position: relative;
-    display: inline-block;
+  .content {
+    width: var(--content-width);
   }
-
 `;
 
 export default GlobalStyles;

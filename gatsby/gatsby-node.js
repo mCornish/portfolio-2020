@@ -27,31 +27,34 @@ async function turnPostsIntoPages({ graphql, actions }) {
   );
 }
 
-async function turnTopicsIntoPages({ graphql, actions }) {
-  const topicsTemplate = path.resolve('./src/pages/pizzas.js');
+// async function turnTopicsIntoPages({ graphql, actions }) {
+//   const topicsTemplate = path.resolve('./src/pages/pizzas.js');
 
-  const { data } = await graphql(`
-    query {
-      toppings: allSanityTopic {
-        nodes {
-          name
-          id
-        }
-      }
-    }
-  `);
+//   const { data } = await graphql(`
+//     query {
+//       toppings: allSanityTopic {
+//         nodes {
+//           name
+//           id
+//         }
+//       }
+//     }
+//   `);
 
-  data.toppings.nodes.forEach((topic) =>
-    actions.createPage({
-      path: `topic/${topic.name}`,
-      component: topicsTemplate,
-      context: {
-        topic: topic.name,
-      },
-    })
-  );
-}
+//   data.toppings.nodes.forEach((topic) =>
+//     actions.createPage({
+//       path: `topic/${topic.name}`,
+//       component: topicsTemplate,
+//       context: {
+//         topic: topic.name,
+//       },
+//     })
+//   );
+// }
 
 export async function createPages(params) {
-  await Promise.all([turnPostsIntoPages(params), turnTopicsIntoPages(params)]);
+  await Promise.all([
+    turnPostsIntoPages(params),
+    // turnTopicsIntoPages(params)
+  ]);
 }

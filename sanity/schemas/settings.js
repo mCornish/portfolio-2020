@@ -12,5 +12,11 @@ export default {
       type: 'text',
       description: 'Message to display prominently',
     },
+    {
+      name: 'about',
+      title: 'About Text',
+      description: 'Text for the About page',
+      type: 'markdown',
+    },
   ],
 };

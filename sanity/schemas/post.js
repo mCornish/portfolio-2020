@@ -40,6 +40,11 @@ export default {
       of: [{ type: 'block' }, { type: 'image' }, { type: 'code' }],
     },
     {
+      name: 'markdown',
+      title: 'Markdown Content',
+      type: 'markdown',
+    },
+    {
       name: 'image',
       title: 'Image',
       type: 'image',

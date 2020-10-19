@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import BlockContent from '@sanity/block-content-to-react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
@@ -10,52 +11,39 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-solarized_dark';
 import SEO from '../components/SEO';
+import PostTitle from '../components/PostTitle';
 
-// SyntaxHighlighter.registerLanguage('javascript', js);
+const ContainerStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
 
-// function TextSpan({ span }) {
-//   let element = <span>{span.text}</span>;
+  .gatsby-image-wrapper {
+    width: 100%;
+  }
 
-//   if (span.marks.includes('strong')) element = <strong>{element}</strong>;
-//   if (span.marks.includes('em')) element = <em>{element}</em>;
+  p {
+    text-indent: 2em;
+    font-size: 1rem;
+  }
+  p:first-child {
+    margin-top: 0;
+  }
+  p:first-child:not(:last-child):first-letter {
+    font-size: 3em;
+    font-family: 'Courier';
+  }
+`;
 
-//   return element;
-// }
-
-// function TextBlock({ block, children }) {
-//   switch (block.style) {
-//     case 'h1':
-//       return <h3>{children}</h3>;
-//     case 'h2':
-//       return <h4>{children}</h4>;
-//     case 'h3':
-//       return <h5>{children}</h5>;
-//     default:
-//       return <p>{children}</p>;
-//   }
-// }
-//
-// function PostText({ text }) {
-//   console.log('PostText -> text', text);
-//   return (
-//     <div>
-//       {text.map((block) => (
-//         <TextBlock key={block._key} block={block}>
-//           {block.children.map((child) => (
-//             <TextSpan key={child._key} span={child} />
-//           ))}
-//         </TextBlock>
-//       ))}
-//     </div>
-//   );
-// }
+const ContentStyles = styled.article`
+  width: var(--content-width);
+  margin-top: 1em;
+`;
 
 const serializers = {
   types: {
     code: ({ node }) => (
-      // <SyntaxHighlighter language="javascript" style={solarizedDark}>
-      //   {node.code}
-      // </SyntaxHighlighter>
       <AceEditor mode="javascript" theme="solarized_dark" value={node.code} />
     ),
   },
@@ -64,23 +52,24 @@ const serializers = {
 export default function SinglePostPage({ data: { post } }) {
   console.log('SinglePostPage -> post', post);
   return (
-    <>
+    <ContainerStyles>
       <SEO title={post.title} image={post.image?.asset?.fluid?.src} />
-      <div>
-        <Img fluid={post.image.asset.fluid} />
+      {post.image && <Img fluid={post.image.asset.fluid} />}
+      <ContentStyles>
+        <PostTitle post={post} align="center" datePosition="bottom" />
         <div>
-          <h1>{post.title}</h1>
-          <h2>{post.subtitle}</h2>
-          {/* <PostText text={post.text} /> */}
-          <BlockContent
-            blocks={post.text}
-            serializers={serializers}
-            projectId={process.env.GATSBY_SANITY_PROJECT_ID}
-            dataset={process.env.GATSBY_SANITY_DATASET}
-          />
+          {post.text && (
+            <BlockContent
+              blocks={post.text}
+              serializers={serializers}
+              projectId={process.env.GATSBY_SANITY_PROJECT_ID}
+              dataset={process.env.GATSBY_SANITY_DATASET}
+            />
+          )}
+          {post.markdown && <ReactMarkdown>{post.markdown}</ReactMarkdown>}
         </div>
-      </div>
-    </>
+      </ContentStyles>
+    </ContainerStyles>
   );
 }
 
@@ -89,7 +78,9 @@ export const query = graphql`
     post: sanityPost(slug: { current: { eq: $slug } }) {
       title
       subtitle
+      date(formatString: "MMMM D, YYYY")
       text: _rawText
+      markdown
       id
       image {
         asset {
@@ -97,6 +88,10 @@ export const query = graphql`
             ...GatsbySanityImageFluid
           }
         }
+      }
+      type {
+        chapter
+        appendix
       }
     }
   }

@@ -1,15 +1,21 @@
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import React from 'react';
+import styled from 'styled-components';
+import PostTitle from '../components/PostTitle';
+
+const PostListStyles = styled.div`
+  > * + * {
+    margin-top: 2em;
+  }
+`;
 
 function PostList({ posts }) {
   return (
-    <div>
+    <PostListStyles>
       {posts.map((post) => (
-        <div key={post.id}>
-          <Link to={`/post/${post.slug.current}`}>{post.title}</Link>
-        </div>
+        <PostTitle key={post.id} post={post} />
       ))}
-    </div>
+    </PostListStyles>
   );
 }
 
@@ -23,13 +29,13 @@ export default function HomePage({ data }) {
 
 export const query = graphql`
   query PostsQuery {
-    posts: allSanityPost {
+    posts: allSanityPost(sort: { fields: [date], order: DESC }) {
       nodes {
         slug {
           current
         }
         id
-        date(fromNow: true)
+        date(formatString: "MMMM D, YYYY")
         image {
           asset {
             fluid {
@@ -45,6 +51,10 @@ export const query = graphql`
             text
             marks
           }
+        }
+        type {
+          chapter
+          appendix
         }
       }
     }

@@ -1,43 +1,127 @@
 import { createGlobalStyle } from 'styled-components';
 
-// import font from '../assets/fonts/frenchfries.woff';
+import merriweather from '../assets/fonts/Merriweather-Regular.ttf';
+import merriweatherBold from '../assets/fonts/Merriweather-Bold.ttf';
+import merriweatherItalic from '../assets/fonts/Merriweather-Italic.ttf';
+import merriweatherBoldItalic from '../assets/fonts/Merriweather-BoldItalic.ttf';
+import merriweatherSans from '../assets/fonts/MerriweatherSans-Regular.ttf';
+import merriweatherSansBold from '../assets/fonts/MerriweatherSans-Bold.ttf';
+import merriweatherSansBoldItalic from '../assets/fonts/MerriweatherSans-BoldItalic.ttf';
+// import merriweatherSans from '../assets/fonts/MerriweatherSans-VariableFont_wght.ttf';
 
 const Typography = createGlobalStyle`
-  ${'' /* @font-face {
-    font-family: FrenchFries;
-    src: url(${font});
-  } */}
+:root {
+    --font-primary: Merriweather, Georgia, serif;
+    --font-secondary: Merriweather Sans, Helvetica, Arial, sans-serif;
+  }
+  @font-face {
+    font-family: Merriweather;
+    src: url(${merriweather});
+  }
+  @font-face {
+    font-family: Merriweather;
+    src: url(${merriweatherBold});
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: Merriweather;
+    src: url(${merriweatherItalic});
+    font-style: italic;
+  }
+  @font-face {
+    font-family: Merriweather;
+    src: url(${merriweatherBoldItalic});
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Merriweather Sans;
+    src: url(${merriweatherSans});
+  }
+  @font-face {
+    font-family: Merriweather Sans;
+    src: url(${merriweatherSansBold});
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: Merriweather Sans;
+    src: url(${merriweatherSansBoldItalic});
+    font-weight: bold;
+    font-style: italic;
+  }
+
   html {
-    font-family: FrenchFries, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-primary);
     color: var(--black);
+    font-size: 18px;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary);
+    color: var(--dark-gray);
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 1.5em 0 .5em;
+    padding: 0;
+
+    @include mobile {
+        line-height: 1.4;
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    a {
+      color: inherit;
+    }
+    margin-top: 2em;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-top: 1em;
+  }
+
+  h4 {
+    font-size: 18px;
+    color: var(--gray);
+  }
+
   p, li {
-    letter-spacing: 0.5px;
+    color: var(--color-text-dark);
   }
-  h1,h2,h3,h4,h5,h6 {
-    font-weight: normal;
-    margin: 0;
-  }
+
   a {
-    color: var(--black);
-    text-decoration-color: var(--red);
-    /* Chrome renders this weird with this font, so we turn it off */
-    text-decoration-skip-ink: none;
+    color: var(--color-link);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color .2s;
   }
-  mark, .mark {
-    background: var(--yellow);
-    padding: 0 2px 2px 2px;
-    margin: 0;
-    display: inline;
-    line-height: 1;
+  a:hover, 
+  a:active,
+  a:visited:hover,
+  a:visited:active {
+      color: var(--color-brand-1);
+      border-bottom-color: var(--color-brand-1);
+  }
+  a:visited {
+    color: var(--color-text-dark);
+  }
+  p a {
+      border-bottom: 1px dotted var(--color-link);
   }
 
   .center {
     text-align: center;
   }
 
-  .tilt {
-    transform: rotate(-2deg);
+  strong {
+    font-family: "Merriweather-Bold";
   }
 `;
 
