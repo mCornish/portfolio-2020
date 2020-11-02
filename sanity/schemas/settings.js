@@ -7,16 +7,24 @@ export default {
   icon,
   fields: [
     {
-      name: 'announcement',
-      title: 'Announcement',
-      type: 'text',
-      description: 'Message to display prominently',
+      name: 'intro',
+      title: 'Intro',
+      description: 'Who am I?',
+      type: 'markdown',
     },
     {
-      name: 'about',
-      title: 'About Text',
-      description: 'Text for the About page',
-      type: 'markdown',
+      name: 'photo',
+      title: 'Photo',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
+      name: 'contact',
+      title: 'Contact',
+      description: 'How can you contact me?',
+      type: 'contacts',
     },
   ],
 };

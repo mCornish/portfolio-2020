@@ -4,14 +4,15 @@ dotenv.config({ path: '.env' });
 
 export default {
   siteMetadata: {
-    title: `devStory`,
-    siteUrl: 'https://devstory.mikecornish.me',
-    description: 'Tales of development',
+    title: `Mike Cornish`,
+    siteUrl: 'https://mikecornish.me',
+    description: "Mike Cornish's Portfolio",
     twitter: '@MikeWCornish',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
+    'gatsby-plugin-typescript',
     {
       // this is the name of the plugin you are adding
       resolve: 'gatsby-source-sanity',

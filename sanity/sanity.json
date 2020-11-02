@@ -2,10 +2,10 @@
   "root": true,
   "api": {
     "dataset": "production",
-    "projectId": "ftec7ll7"
+    "projectId": "k3uy4raa"
   },
   "project": {
-    "name": "devstory"
+    "name": "portfolio"
   },
   "plugins": [
     "@sanity/base",

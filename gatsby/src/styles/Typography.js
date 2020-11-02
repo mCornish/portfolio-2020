@@ -10,7 +10,7 @@ import merriweatherSansBoldItalic from '../assets/fonts/MerriweatherSans-BoldIta
 // import merriweatherSans from '../assets/fonts/MerriweatherSans-VariableFont_wght.ttf';
 
 const Typography = createGlobalStyle`
-:root {
+  :root {
     --font-primary: Merriweather, Georgia, serif;
     --font-secondary: Merriweather Sans, Helvetica, Arial, sans-serif;
   }
@@ -71,29 +71,16 @@ const Typography = createGlobalStyle`
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     a {
       color: inherit;
     }
     margin-top: 2em;
   }
 
-  h2 {
-    font-size: 2rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    margin-top: 1em;
-  }
-
-  h4 {
-    font-size: 18px;
-    color: var(--gray);
-  }
-
   p, li {
     color: var(--color-text-dark);
+    font-size: 1rem;
   }
 
   a {

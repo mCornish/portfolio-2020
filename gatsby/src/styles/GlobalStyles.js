@@ -21,8 +21,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    display: flex;
-    justify-content: center;
+    min-height: 100vh;
     font-size: 2rem;
   }
 
