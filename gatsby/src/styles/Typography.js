@@ -7,13 +7,15 @@ import merriweatherBoldItalic from '../assets/fonts/Merriweather-BoldItalic.ttf'
 import merriweatherSans from '../assets/fonts/MerriweatherSans-Regular.ttf';
 import merriweatherSansBold from '../assets/fonts/MerriweatherSans-Bold.ttf';
 import merriweatherSansBoldItalic from '../assets/fonts/MerriweatherSans-BoldItalic.ttf';
-// import merriweatherSans from '../assets/fonts/MerriweatherSans-VariableFont_wght.ttf';
+
+import oldLondon from '../assets/fonts/OldLondon.ttf';
 
 const Typography = createGlobalStyle`
-  :root {
-    --font-primary: Merriweather, Georgia, serif;
-    --font-secondary: Merriweather Sans, Helvetica, Arial, sans-serif;
+  @font-face {
+    font-family: OldLondon;
+    src: url(${oldLondon});
   }
+
   @font-face {
     font-family: Merriweather;
     src: url(${merriweather});
@@ -49,6 +51,12 @@ const Typography = createGlobalStyle`
     src: url(${merriweatherSansBoldItalic});
     font-weight: bold;
     font-style: italic;
+  }
+
+  :root {
+    --font-title: OldLondon, Merriweather, Georgia, serif;
+    --font-primary: Merriweather, Georgia, serif;
+    --font-secondary: Merriweather Sans, Helvetica, Arial, sans-serif;
   }
 
   html {

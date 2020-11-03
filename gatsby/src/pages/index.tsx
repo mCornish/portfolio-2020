@@ -31,31 +31,7 @@ const HomePageStyles = styled.div`
   }
 `;
 
-const CardGridStyles = styled.div`
-  position: relative;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-  /* Border color */
-  background-color: rgba(0, 0, 0, 0.1);
-
-  > div {
-    padding: 2em;
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-
-  .name {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: 0;
-    transform: translate(-50%, -50%);
-    font-size: 1.2em;
-  }
-`;
+const CardGridStyles = styled.div``;
 
 type FluidImage = {
   asset: {
@@ -96,19 +72,15 @@ export default function HomePage({
   const { posts } = useBlogPosts();
   return (
     <HomePageStyles>
-      <CardGridStyles>
-        <div>
-          <h1>Who am I?</h1>
-          <div className="row">
-            <ReactMarkdown>{info.intro}</ReactMarkdown>
-            {/* <Img
-              fluid={info.photo.asset.fluid}
-              alt="Mike Cornish sitting in a chair, smiling"
-            /> */}
-          </div>
-        </div>
-        <div>
-          <h1>What have I made?</h1>
+      <h1>{info.headline}</h1>
+      <h2>{info.blurb}</h2>
+      <div className="row">
+        <article>
+          <h3>What has he even built?</h3>
+          <p>
+            When asked about his alleged creations, Mr. Cornish glady presented
+            a list:
+          </p>
           <ul>
             {projects.nodes.map(({ id, name, description, link }) => (
               <li key={id}>
@@ -118,46 +90,50 @@ export default function HomePage({
               </li>
             ))}
           </ul>
-        </div>
-        <div>
-          <h1>What do I think about?</h1>
-          <ul>
-            {posts.map(({ _id, subtitle, slug }) => (
-              <li key={_id}>
-                <a
-                  href={`https://blog.mikecornish.me/post/${slug.current}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {subtitle}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h1>How can you contact me?</h1>
-          <ul>
-            <li>
-              <a href={`mailto:${info.contact.email}`}>Email</a>
-            </li>
-            <li>
-              <a href={`https://twitter.com/${info.contact.twitter}`}>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href={`https://github.com/${info.contact.github}`}>Github</a>
-            </li>
-            <li>
-              <a href={`https://linkedin.com/in/${info.contact.linkedin}`}>
-                LinkedIn
-              </a>
-            </li>
-          </ul>
-        </div>
-        <h1 className="name">MIKE CORNISH</h1>
-      </CardGridStyles>
+        </article>
+        <Img
+          fluid={info.photo.asset.fluid}
+          alt="Mike Cornish sitting in a chair, smiling"
+        />
+        <article>
+          <ReactMarkdown>{info.intro}</ReactMarkdown>
+        </article>
+      </div>
+      <h3>"I have thoughts on a lot of different things."</h3>
+      <div className="row">
+        {posts.map(({ _id, subtitle, slug }) => (
+          <article key={_id}>
+            <h4>{subtitle}</h4>
+            <a
+              href={`https://blog.mikecornish.me/post/${slug.current}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Keep reading
+            </a>
+          </article>
+        ))}
+      </div>
+      <div>
+        <h1>How can you contact me?</h1>
+        <ul>
+          <li>
+            <a href={`mailto:${info.contact.email}`}>Email</a>
+          </li>
+          <li>
+            <a href={`https://twitter.com/${info.contact.twitter}`}>Twitter</a>
+          </li>
+          <li>
+            <a href={`https://github.com/${info.contact.github}`}>Github</a>
+          </li>
+          <li>
+            <a href={`https://linkedin.com/in/${info.contact.linkedin}`}>
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+      <h1 className="name">MIKE CORNISH</h1>
     </HomePageStyles>
   );
 }

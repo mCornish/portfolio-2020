@@ -12,8 +12,6 @@ const GlobalStyles = createGlobalStyle`
     --black: rgba(0,0,0,.9);
     --dark-gray: #333;
     --gray: #666;
-
-    --content-width: 740px;
   }
   html {
     font-size: 10px;
