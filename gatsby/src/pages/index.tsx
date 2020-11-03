@@ -9,7 +9,7 @@ import SEO from '../components/SEO';
 
 const HomePageStyles = styled.div`
   ul {
-    list-style: none;
+    /* list-style: none; */
   }
 
   li + li {
@@ -32,8 +32,55 @@ const HomePageStyles = styled.div`
     text-align: center;
   }
 
+  .project-header {
+    white-space: nowrap;
+    border: var(--header-border);
+    border-left: 0;
+    border-right: 0;
+  }
+
   .main-image {
     border: 2px solid var(--black);
+  }
+  .gatsby-image-wrapper {
+    width: 500px;
+    height: auto;
+  }
+
+  .intro {
+    border-top: var(--header-border);
+
+    p:first-letter {
+      float: left;
+      margin-right: 0.1em;
+      font-size: 4em;
+      font-family: var(--font-secondary);
+      font-weight: bold;
+      color: var(--color-brand-1);
+      line-height: 1;
+    }
+  }
+
+  .row-one {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+  }
+
+  .blog-header {
+    font-size: 1em;
+  }
+
+  .post-header {
+    font-size: 1rem;
+  }
+  .post-content {
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-size: 1rem;
+    }
   }
 
   .row {
@@ -41,14 +88,7 @@ const HomePageStyles = styled.div`
     align-items: flex-start;
     gap: 1em;
   }
-
-  .gatsby-image-wrapper {
-    width: 400px;
-    height: 300px;
-  }
 `;
-
-const CardGridStyles = styled.div``;
 
 type FluidImage = {
   asset: {
@@ -89,15 +129,34 @@ export default function HomePage({
   data: { info, projects },
 }: HomePageProps): ReactElement {
   const { posts } = useBlogPosts();
+
+  // Get preview content for blog post
+  // TODO: Handle "text" content (currently only markdown)
+  const getContent = ({ markdown, text }) => {
+    const endingChars = [' ', ','];
+    const maxLength = 500;
+    let cleaned = '';
+    let skipping = false;
+    let ending = false;
+    for (const char of markdown) {
+      if (cleaned.length === maxLength) ending = true;
+      if (char === '<') skipping = true;
+      else if (char === '>') skipping = false;
+      else if (ending && endingChars.includes(char)) break;
+      else if (!skipping) cleaned += char;
+    }
+    if (cleaned.length >= maxLength) cleaned += '...';
+    return <ReactMarkdown>{cleaned}</ReactMarkdown>;
+  };
   return (
     <>
       <SEO image={info?.photo?.asset?.fluid?.src} />
       <HomePageStyles>
         <h1 className="headline">{info.headline}</h1>
         <h2 className="blurb">{info.blurb}</h2>
-        <div className="row">
+        <div className="row-one">
           <article>
-            <h3>What has he even built?</h3>
+            <h3 className="project-header">What has he even built?</h3>
             <p>
               When asked about his alleged creations, Mr. Cornish glady
               presented a list:
@@ -106,7 +165,7 @@ export default function HomePage({
               {projects.nodes.map(({ id, name, description, link }) => (
                 <li key={id}>
                   <a href={link} target="_blank" rel="noreferrer">
-                    {name}: {description}
+                    <strong>{name}</strong>: {description}
                   </a>
                 </li>
               ))}
@@ -115,20 +174,23 @@ export default function HomePage({
           <div className="main-image">
             <Img
               fluid={info.photo.asset.fluid}
-              alt="Mike Cornish sitting in a chair, smiling"
+              alt="Mike Cornish sitting in a chair, smiling at the camera"
             />
           </div>
-          <article>
+          <article className="intro">
             <ReactMarkdown>{info.intro}</ReactMarkdown>
           </article>
         </div>
-        <h3>"I have thoughts on a lot of different things."</h3>
+        <h3 className="blog-header">
+          "I have thoughts on a lot of different things."
+        </h3>
         <div className="row">
           {posts.map(({ _id, subtitle, markdown, text, slug }) => (
             <article key={_id}>
-              <h4>{subtitle}</h4>
-              <div>
-                {text && (
+              <h4 className="post-header">{subtitle}</h4>
+              <div className="post-content">
+                {getContent({ markdown, text })}
+                {/* {text && (
                   <BlockContent
                     blocks={text}
                     serializers={serializers}
@@ -136,7 +198,7 @@ export default function HomePage({
                     dataset={process.env.GATSBY_SANITY_DATASET}
                   />
                 )}
-                {markdown && <ReactMarkdown>{markdown}</ReactMarkdown>}
+                {markdown && <ReactMarkdown>{markdown}</ReactMarkdown>} */}
               </div>
               <a
                 href={`https://blog.mikecornish.me/post/${slug.current}`}

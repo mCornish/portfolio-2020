@@ -61,13 +61,14 @@ const Typography = createGlobalStyle`
 
   html {
     font-family: var(--font-primary);
-    color: var(--black);
+    color: var(--color-text-dark);
     font-size: 18px;
+    line-height: 1.8;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-primary);
-    color: var(--dark-gray);
+    ${'' /* color: var(--dark-gray); */}
     font-weight: bold;
     line-height: 1.3;
     margin: 0;
@@ -92,15 +93,17 @@ const Typography = createGlobalStyle`
   h3 {
     padding: 1em 0;
     font-size: 1.2rem;
-    white-space: nowrap;
-    border: 1px solid var(--black);
-    border-left: 0;
-    border-right: 0;
+    text-align: center;
   }
 
   p, li {
-    color: var(--color-text-dark);
+    ${'' /* color: var(--color-text-dark); */}
     font-size: 1rem;
+  }
+
+  ul {
+    padding-left: 1rem;
+    margin: 0;
   }
 
   a {

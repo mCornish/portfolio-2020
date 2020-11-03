@@ -4,7 +4,7 @@ const GlobalStyles = createGlobalStyle`
   :root {
     --color-brand-1: rgb(57,154,234);
     --color-brand-2: rgb(135,102,219);
-    --color-text-dark: #666666;
+    --color-text-dark: rgba(30,30,30);
     --color-text-light: rgba(255,255,255,90);
     --color-link: rgb(0,0,0);
     --color-link-visited: rgba(0,0,0,40);
@@ -12,10 +12,8 @@ const GlobalStyles = createGlobalStyle`
     --black: rgba(0,0,0,.9);
     --dark-gray: #333;
     --gray: #666;
-  }
-  html {
-    font-size: 10px;
-    line-height: 1.8;
+
+    --header-border: 1px solid var(--color-text-dark);
   }
 
   body {
@@ -69,10 +67,6 @@ const GlobalStyles = createGlobalStyle`
 
   img {
     max-width: 100%;
-  }
-
-  .content {
-    width: var(--content-width);
   }
 `;
 

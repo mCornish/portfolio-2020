@@ -10,10 +10,11 @@ const ContainerStyles = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 0 3em;
+  /* align-items: center; */
 
   .content {
-    width: 1000px;
+    /* width: 1200px; */
   }
 
   .texture {

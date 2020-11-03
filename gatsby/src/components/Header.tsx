@@ -20,7 +20,7 @@ const HeaderStyles = styled.header`
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translate(-100%, -50%);
+    transform: translate(-100%, -30%);
   }
   h1 {
     margin: 0;
@@ -50,7 +50,7 @@ export default function Footer() {
       <div>
         <img
           src={logo}
-          width="80"
+          width="70"
           alt="Logo depicting silhouette of cornish hen"
         />
         <h1>The Cornish Chronicle</h1>
