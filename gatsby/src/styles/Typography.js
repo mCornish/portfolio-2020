@@ -66,11 +66,11 @@ const Typography = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-secondary);
+    font-family: var(--font-primary);
     color: var(--dark-gray);
     font-weight: bold;
     line-height: 1.3;
-    margin: 1.5em 0 .5em;
+    margin: 0;
     padding: 0;
 
     @include mobile {
@@ -79,11 +79,23 @@ const Typography = createGlobalStyle`
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 3rem;
     a {
       color: inherit;
     }
-    margin-top: 2em;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+  h3 {
+    padding: 1em 0;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    border: 1px solid var(--black);
+    border-left: 0;
+    border-right: 0;
   }
 
   p, li {

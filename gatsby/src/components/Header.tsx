@@ -13,6 +13,7 @@ const HeaderStyles = styled.header`
   div {
     position: relative;
     padding: 1em;
+    padding-bottom: 0;
     text-align: center;
   }
   img {
@@ -49,7 +50,7 @@ export default function Footer() {
       <div>
         <img
           src={logo}
-          width="100"
+          width="80"
           alt="Logo depicting silhouette of cornish hen"
         />
         <h1>The Cornish Chronicle</h1>

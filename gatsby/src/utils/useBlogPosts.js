@@ -19,6 +19,8 @@ export default function useBlogPosts() {
               _id
               title
               subtitle
+              # rawText
+              markdown
               slug {
                 current
               }

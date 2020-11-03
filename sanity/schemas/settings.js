@@ -7,6 +7,16 @@ export default {
   icon,
   fields: [
     {
+      name: 'headline',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
+      name: 'blurb',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
       name: 'intro',
       title: 'Intro',
       description: 'Who am I?',

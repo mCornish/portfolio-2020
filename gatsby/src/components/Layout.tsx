@@ -7,12 +7,26 @@ import Header from './Header';
 import Footer from './Footer';
 
 const ContainerStyles = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .content {
     width: 1000px;
+  }
+
+  .texture {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/textured-paper.png');
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 100;
   }
 `;
 
@@ -30,6 +44,7 @@ export default function Layout({
         {children}
         <Footer />
       </div>
+      <div className="texture" />
     </ContainerStyles>
   );
 }

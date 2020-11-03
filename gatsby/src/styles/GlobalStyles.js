@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     min-height: 100vh;
     font-size: 2rem;
+    background-color: rgb(230,230,250);
   }
 
   fieldset {
