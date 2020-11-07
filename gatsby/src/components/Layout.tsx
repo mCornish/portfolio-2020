@@ -25,7 +25,9 @@ const ContainerStyles = styled.div`
     left: 0;
     top: 0;
     background-image: url('https://www.transparenttextures.com/patterns/textured-paper.png');
-    opacity: 0.4;
+    background-color: yellow;
+    background-blend-mode: exclusion;
+    opacity: 0.2;
     pointer-events: none;
     z-index: 100;
   }

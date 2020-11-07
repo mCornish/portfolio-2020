@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 
 const gql = String.raw;
 
-export default function useBlogPosts() {
+export default function useBlogPosts(count = 5) {
+  console.log('useBlogPosts -> count', count);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -15,7 +16,7 @@ export default function useBlogPosts() {
       body: JSON.stringify({
         query: gql`
           query {
-            posts: allPost(sort: { _createdAt: DESC }, limit: 5) {
+            posts: allPost(sort: { _createdAt: DESC }, limit: ${count}) {
               _id
               title
               subtitle
@@ -33,7 +34,7 @@ export default function useBlogPosts() {
       .then(({ data: { posts: newPosts = [] } }) => {
         setPosts(newPosts);
       });
-  }, []);
+  }, [count]);
 
   return { posts };
 }

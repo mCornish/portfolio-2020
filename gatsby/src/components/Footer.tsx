@@ -4,17 +4,17 @@ import { FaEnvelope, FaHome, FaGithub, FaTwitter } from 'react-icons/fa';
 
 const FooterStyles = styled.footer`
   display: flex;
-  justify-content: center;
-  margin-top: 5em;
+  justify-content: space-between;
+  /* margin-top: 5em; */
   width: 100%;
 
-  > div {
+  /* > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: var(--content-width);
     font-size: 1rem;
-  }
+  } */
 
   p {
     display: flex;
@@ -32,44 +32,43 @@ const FooterStyles = styled.footer`
 `;
 
 export default function Footer() {
+  // Move this content to the CMS
   return (
     <FooterStyles>
+      <p>&copy; Mike Cornish {new Date().getFullYear()}</p>
       <div>
-        <p>&copy; Mike Cornish {new Date().getFullYear()}</p>
-        <div>
-          <a
-            role="button"
-            href="https://www.mikecornish.me"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaHome />
-          </a>
-          <a
-            role="button"
-            href="https://twitter.com/MikeWCornish"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaTwitter />
-          </a>
-          <a
-            role="button"
-            href="https://github.com/mCornish/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaGithub />
-          </a>
-          <a
-            role="button"
-            href="mailto:cornishmw@gmail.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaEnvelope />
-          </a>
-        </div>
+        <a
+          role="button"
+          href="https://www.mikecornish.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaHome />
+        </a>
+        <a
+          role="button"
+          href="https://twitter.com/MikeWCornish"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaTwitter />
+        </a>
+        <a
+          role="button"
+          href="https://github.com/mCornish/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaGithub />
+        </a>
+        <a
+          role="button"
+          href="mailto:cornishmw@gmail.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaEnvelope />
+        </a>
       </div>
     </FooterStyles>
   );

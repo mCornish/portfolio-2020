@@ -41,11 +41,12 @@ const HomePageStyles = styled.div`
 
   .main-image {
     border: 2px solid var(--black);
+    width: clamp(10em, 100%, 20em);
   }
-  .gatsby-image-wrapper {
+  /* .gatsby-image-wrapper {
     width: 500px;
     height: auto;
-  }
+  } */
 
   .intro {
     border-top: var(--header-border);
@@ -63,7 +64,9 @@ const HomePageStyles = styled.div`
 
   .row-one {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 8em 1fr 1fr;
+    justify-items: center;
+    align-items: flex-start;
     gap: 1em;
   }
 
@@ -84,11 +87,82 @@ const HomePageStyles = styled.div`
   }
 
   .row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+    gap: 1em;
+  }
+
+  .post-contact-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     align-items: flex-start;
     gap: 1em;
   }
+
+  .contact {
+    padding: 2em;
+    border: 0.5em solid var(--black);
+    grid-column: 1/-1;
+    font-size: 0.7rem;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
 `;
+
+type Post = {
+  _id: string;
+  subtitle: string;
+  markdown: string;
+  text: string;
+  slug: string;
+};
+const Post = ({
+  post: { _id, subtitle, markdown, text, slug },
+  contentLength = 500,
+}: {
+  post: Post;
+  contentLength: number;
+}) => {
+  // Get preview content for blog post
+  // TODO: Handle "text" content (currently only markdown)
+  const getContent = ({
+    markdown,
+    text,
+  }: {
+    markdown: string;
+    text: string;
+  }): ReactElement => {
+    const endingChars = [' ', ','];
+    let cleaned = '';
+    let skipping = false;
+    let ending = false;
+    for (const char of markdown) {
+      if (cleaned.length === contentLength) ending = true;
+      if (char === '<') skipping = true;
+      else if (char === '>') skipping = false;
+      else if (ending && endingChars.includes(char)) break;
+      else if (!skipping) cleaned += char;
+    }
+    if (cleaned.length >= contentLength) cleaned += '...';
+    return <ReactMarkdown>{cleaned}</ReactMarkdown>;
+  };
+  return (
+    <article key={_id}>
+      <h4 className="post-header">{subtitle}</h4>
+      <div className="post-content">{getContent({ markdown, text })}</div>
+      <a
+        href={`https://blog.mikecornish.com/post/${slug.current}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Keep reading
+      </a>
+    </article>
+  );
+};
 
 type FluidImage = {
   asset: {
@@ -129,25 +203,6 @@ export default function HomePage({
   data: { info, projects },
 }: HomePageProps): ReactElement {
   const { posts } = useBlogPosts();
-
-  // Get preview content for blog post
-  // TODO: Handle "text" content (currently only markdown)
-  const getContent = ({ markdown, text }) => {
-    const endingChars = [' ', ','];
-    const maxLength = 500;
-    let cleaned = '';
-    let skipping = false;
-    let ending = false;
-    for (const char of markdown) {
-      if (cleaned.length === maxLength) ending = true;
-      if (char === '<') skipping = true;
-      else if (char === '>') skipping = false;
-      else if (ending && endingChars.includes(char)) break;
-      else if (!skipping) cleaned += char;
-    }
-    if (cleaned.length >= maxLength) cleaned += '...';
-    return <ReactMarkdown>{cleaned}</ReactMarkdown>;
-  };
   return (
     <>
       <SEO image={info?.photo?.asset?.fluid?.src} />
@@ -185,53 +240,57 @@ export default function HomePage({
           "I have thoughts on a lot of different things."
         </h3>
         <div className="row">
-          {posts.map(({ _id, subtitle, markdown, text, slug }) => (
-            <article key={_id}>
-              <h4 className="post-header">{subtitle}</h4>
-              <div className="post-content">
-                {getContent({ markdown, text })}
-                {/* {text && (
-                  <BlockContent
-                    blocks={text}
-                    serializers={serializers}
-                    projectId={process.env.GATSBY_SANITY_PROJECT_ID}
-                    dataset={process.env.GATSBY_SANITY_DATASET}
-                  />
-                )}
-                {markdown && <ReactMarkdown>{markdown}</ReactMarkdown>} */}
-              </div>
-              <a
-                href={`https://blog.mikecornish.me/post/${slug.current}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Keep reading
-              </a>
-            </article>
+          {posts.slice(0, 2).map((post: Post) => (
+            <Post key={post._id} post={post} contentLength={500} />
           ))}
+          <div className="post-contact-container">
+            {posts.slice(2).map((post: Post) => (
+              <Post key={post._id} post={post} contentLength={300} />
+            ))}
+            <div className="contact">
+              <h1>
+                Have feedback, praise, or general inquiries? Make yourself
+                heard!
+              </h1>
+              <p>
+                This is Mike Cornish, owner of{' '}
+                <strong>The Cornish Chronicle</strong>. I know that no one is
+                perfect, and I'm always striving to make this publication
+                better. I want to hear how I can do that. Then again, maybe you{' '}
+                <em>do</em> think this publication perfect; I want to hear that
+                too. Whatever you have to say, make yourself heard using the
+                contact info below. I'll get back to you before you can say
+                bawk-bawk-bawk!
+              </p>
+              <ul>
+                <li>
+                  Email me at{' '}
+                  <a href={`mailto:${info.contact.email}`}>
+                    {info.contact.email}
+                  </a>
+                </li>
+                <li>
+                  Tweet-tweet-tweet me{' '}
+                  <a href={`https://twitter.com/${info.contact.twitter}`}>
+                    @MikeWCornish
+                  </a>
+                </li>
+                <li>
+                  Watch me work on{' '}
+                  <a href={`https://github.com/${info.contact.github}`}>
+                    Github
+                  </a>
+                </li>
+                <li>
+                  Link up with me on{' '}
+                  <a href={`https://linkedin.com/in/${info.contact.linkedin}`}>
+                    LinkedIn
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div>
-          <h1>How can you contact me?</h1>
-          <ul>
-            <li>
-              <a href={`mailto:${info.contact.email}`}>Email</a>
-            </li>
-            <li>
-              <a href={`https://twitter.com/${info.contact.twitter}`}>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href={`https://github.com/${info.contact.github}`}>Github</a>
-            </li>
-            <li>
-              <a href={`https://linkedin.com/in/${info.contact.linkedin}`}>
-                LinkedIn
-              </a>
-            </li>
-          </ul>
-        </div>
-        <h1 className="name">MIKE CORNISH</h1>
       </HomePageStyles>
     </>
   );

@@ -96,8 +96,7 @@ const Typography = createGlobalStyle`
     text-align: center;
   }
 
-  p, li {
-    ${'' /* color: var(--color-text-dark); */}
+  p, li, a {
     font-size: 1rem;
   }
 
