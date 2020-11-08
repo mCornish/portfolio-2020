@@ -1,8 +1,20 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Helmet } from 'react-helmet';
 
-export default function SEO({ children, location, description, title, image }) {
+export default function SEO({
+  children,
+  location,
+  description,
+  title,
+  image,
+}: {
+  children: ReactElement[];
+  location: string;
+  description: string;
+  title: string;
+  image: string;
+}): ReactElement {
   const { site } = useStaticQuery(graphql`
     query {
       site {
@@ -14,8 +26,12 @@ export default function SEO({ children, location, description, title, image }) {
       }
     }
   `);
+
   return (
-    <Helmet titleTemplate={`%s - ${site.siteMetadata.title}`}>
+    <Helmet
+      defaultTitle="Mike Cornish"
+      titleTemplate={title ? `%s | ${site.siteMetadata.title}` : 'Mike Cornish'}
+    >
       <html lang="en" />
       <title>{title}</title>
 
