@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 
 const gql = String.raw;
 
-export default function useBlogPosts(count = 5) {
-  console.log('useBlogPosts -> count', count);
+export default function useBlogPosts({ count = 5, limit = 20 } = {}) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export default function useBlogPosts(count = 5) {
       body: JSON.stringify({
         query: gql`
           query {
-            posts: allPost(sort: { _createdAt: DESC }, limit: ${count}) {
+            posts: allPost(sort: { _createdAt: DESC }, limit: ${limit}) {
               _id
               title
               subtitle
@@ -32,7 +31,9 @@ export default function useBlogPosts(count = 5) {
     })
       .then((res) => res.json())
       .then(({ data: { posts: newPosts = [] } }) => {
-        setPosts(newPosts);
+        // TODO: Add ability to render non-markdown posts
+        const markdownPosts = newPosts.filter(({ markdown }) => !!markdown);
+        setPosts(markdownPosts.slice(0, count));
       });
   }, [count]);
 
